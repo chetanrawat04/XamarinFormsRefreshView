@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Refreshview.View.RefreshPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Refreshview.ViewModel"
+    Title="RefreshView Example">
+    <ContentPage.BindingContext>
+        <local:RefreshPageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <DataTemplate x:Key="ColorItemTemplate">
+            <Grid
+                Margin="5"
+                HeightRequest="120"
+                WidthRequest="115">
+                <BoxView Color="{Binding Color}" />
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    HorizontalOptions="Center"
+                    Text="{Binding Name}"
+                    VerticalOptions="Center" />
+            </Grid>
+        </DataTemplate>
+    </ContentPage.Resources>
+    <RefreshView
+        Command="{Binding RefreshCommand}"
+        HorizontalOptions="FillAndExpand"
+        IsRefreshing="{Binding IsRefreshing}"
+        RefreshColor="Red"
+        VerticalOptions="FillAndExpand">
+        <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <FlexLayout
+                AlignContent="Center"
+                AlignItems="Center"
+                BindableLayout.ItemTemplate="{StaticResource ColorItemTemplate}"
+                BindableLayout.ItemsSource="{Binding Items}"
+                Direction="Row"
+                Wrap="Wrap" />
+        </ScrollView>
+    </RefreshView>
+</ContentPage>
